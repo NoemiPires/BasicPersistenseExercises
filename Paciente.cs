@@ -13,8 +13,9 @@ namespace BasicPersistenceExercises
         [MaxLength(45)]
         public String? Nome {  get; set; }
 
-
+        [Required]
         private DateOnly _nascimento;
+        [Required]
         public DateOnly Nascimento 
         {
             get => _nascimento;

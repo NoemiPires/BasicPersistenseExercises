@@ -3,10 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace BasicPersistenceExercises
 {
-    internal class Repository
+    public class Repository : DbContext
     {
+        private static readonly String _connectionParams = @"server=127.0.0.1;port=3307;uid=root;pwd=;database=basicpersistence";
+
+        public DbSet<Paciente> Pacientes { get; set; }
+        public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<Evento> Eventos { get; set; }
+        public DbSet<Tarefa> Tarefas { get; set; }
+
+        public Repository() => this.Database.EnsureCreated();
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseMySQL(_connectionParams);
+        }
     }
 }

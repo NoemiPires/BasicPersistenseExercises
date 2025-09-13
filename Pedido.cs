@@ -1,17 +1,24 @@
-﻿using System;
+﻿using Google.Protobuf.WellKnownTypes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Org.BouncyCastle.Bcpg.OpenPgp;
 
 namespace BasicPersistenceExercises
 {
     public class Pedido
     {
+        //id
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public UInt64 Id { get; set; }
+
+        //valor
         private Decimal _valor;
-        public Decimal Valor 
+        public Decimal Valor
         {
             get => _valor;
             set
@@ -24,15 +31,16 @@ namespace BasicPersistenceExercises
             }
         }
 
+        //data
         [Required]
-        private DateOnly _data;
+        private DateTime _data;
         [Required]
-        public DateOnly Data
+        public DateTime Data
         {
             get => _data;
             set
             {
-                if (_data > DateOnly.FromDateTime(DateTime.Now))
+                if (_data > DateTime.Now)
                 {
                     throw new Exception("Data do pedido não pode ser futura");
                 }
@@ -40,6 +48,7 @@ namespace BasicPersistenceExercises
             }
         }
 
+        //quantidade
         private Decimal _quantidade;
         public Decimal Quantidade
         {
@@ -54,6 +63,7 @@ namespace BasicPersistenceExercises
             }
         }
 
-        public Estado Estado { get; set; }
+        //estado
+        public Estado Estado { get; set; } = Estado.PENDENTE;
     }
 }

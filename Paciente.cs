@@ -60,5 +60,13 @@ namespace BasicPersistenceExercises
         //ultima Consulta
         public DateTime UltimaConsulta { get; set; }
 
+        public override String ToString()
+        {
+            return Id
+                + ", " + Nome + ", " + Nascimento + ", " + 
+                Idade + ", " + Genero + ", " + Condicao +
+                 ", " + UltimaConsulta;
+        }
+
     }
 }
